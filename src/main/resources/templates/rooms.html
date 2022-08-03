@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <title>Halis</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+    * {
+    font-size: 20px;
+    font-family: 'Roboto Condensed', sans-serif;
+    text-align: center
+    }
+  </style>
+</head>
+<body>
+
+<div th:if="${selectedMode.data.roomId == 0}">
+  <p style="font-weight: bold">Humidity will be 50-60%</p>
+
+  <p><a href="/">Main page</a></p>
+</div>
+
+<div th:if="${selectedMode.data.roomId == 1}">
+  <p style="font-weight: bold">Humidity will be 40-50%</p>
+
+  <p><a href="/">Main page</a></p>
+</div>
+
+<div th:if="${selectedMode.data.roomId == 2}">
+  <p style="font-weight: bold">Humidity will be 40-60%</p>
+
+  <p><a href="/">Main page</a></p>
+</div>
+
+</body>
+</html>

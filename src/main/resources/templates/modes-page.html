@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <title>Halis</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+    * {
+    font-size: 20px;
+    font-family: 'Roboto Condensed', sans-serif;
+    text-align: center
+    }
+  </style>
+</head>
+<body>
+
+<div th:if="${mode == 0}">
+  <p><b style="font-size: 30px">Auto mode</b></p>
+
+  <p style="font-weight: bold">Select the room</p>
+  <div>
+    <form action="rooms" method="post">
+      <p><select required="required" size="1" th:name="room">
+        <option disabled selected value="1">Select the mode</option>
+        <option value="0">Children's room</option>
+        <option value="1">Bedroom</option>
+        <option value="2">Other rooms</option>
+      </select></p>
+      <p><input type="submit" value="Submit"></p>
+    </form>
+  </div>
+  <p><a href="/">Main page</a></p>
+</div>
+
+<div th:if="${variableSelectedMode == 1}">
+  <p><b style="font-size: 30px">Select the desired humidity range</b></p>
+  <p style="font-weight: bold">Select the desired humidity range</p>
+  <form action="" method="post">
+    From: <input type="number" min="20" max="70" th:name="from">
+    Till: <input type="number" min="20" max="70" th:name="till">
+    <input type="submit" value="Submit" />
+  </form>
+
+  <p><a href="/">Main page</a></p>
+</div>
+
+<div th:if="${variableSelectedMode == 2}">
+  <p><b style="font-size: 30px">Select the desired time range</b></p>
+  <p style="font-weight: bold">Select the desired time range</p>
+  <form action="" method="post">
+    Hours: <input type="number" min="0" max="127" th:name="hours">
+    Minutes: <input type="number" min="0" max="59" th:name="minutes">
+    <input type="submit" value="Submit" />
+  </form>
+
+  <p><a href="/">Main page</a></p>
+</div>
+
+</body>
+</html>
