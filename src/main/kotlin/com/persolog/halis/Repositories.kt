@@ -8,5 +8,5 @@ interface ModeRepository: CrudRepository<Mode, Byte> {
 interface RoomRepository: CrudRepository<Room, Byte> {
 }
 
-interface DataRepository: CrudRepository<Data, Byte> {
+interface DataRepository: CrudRepository<Data, Long> {
 }

@@ -9,13 +9,15 @@ import org.springframework.web.bind.annotation.RequestParam
 class HalisController(
     private val dataRepository: DataRepository
 ) {
-    val currentHumidity = (20..60).random().toByte()
+    var currentHumidity: Byte = 0
     var variableSelectedMode: Byte = 0
     var data = Data()
     var dataAndMode: MutableMap<Data, Byte> = mutableMapOf()
 
     @GetMapping("/")
     fun main(model: MutableMap<String?, Any?>): String {
+
+        currentHumidity = (20..60).random().toByte()
         var isEmptyTank: Boolean = false
         model["currentHumidity"] = currentHumidity
         val currentWaterLevel: Byte = (0..5).random().toByte()
@@ -26,22 +28,51 @@ class HalisController(
         model["currentWaterLevel"] = currentWaterLevel
 
         return "main"
+    //TODO: При возврате на главную, если не был запущен режим, не менять влажность и уровень воды
+    //TODO: Сделать вывод сообщения а-ля "Tank filled", изменить уровень воды и оставить без изменений вложность
     }
 
     @PostMapping("modes")
     fun modeSelection(@RequestParam mode: Byte, model: MutableMap<String, Byte>): String {
         variableSelectedMode = mode //передаём в глобальную переменную выбранный пользователем режим
-        dataAndMode[data] = mode //передаём в нашу карту объект Данные — режим
-        dataRepository.save(data) //записываем Данные в репу
+        dataAndMode[data] = mode //передаём в нашу карту запись "объект Данные — Режим"
+        model["mode"] = mode
         return "modes-page"
+        //TODO: возникает ошибка, если нажать Submit при выбранной опции Select the mode
     }
 
-    /*@PostMapping("rooms")
-    fun roomSelection(@RequestParam room: Byte, selectedMode: Selected): String {
-        selectedMode.data["roomId"] = selectedRoom.toShort()
-        return "rooms"
-    }*/
+    @PostMapping("rooms")
+    fun roomSelection(@RequestParam room: Byte, model: MutableMap<String, Any>): String {
+        if (room == 0.toByte()) {
+            data = Data(50, 60)
+        } else if (room == 1.toByte()) {
+            data = Data(40, 50)
+        } else if (room == 2.toByte()) {
+            data = Data(40, 60)
+        }
+        dataRepository.save(data)
+        model["room"] = room
 
+        val dataEntries: Iterable<Data?> = dataRepository.findAll()
+        model["dataEntries"] = dataEntries
+        model["mode"] = variableSelectedMode
+        model["data"] = data
+        return "rooms"
+    }
+
+    @PostMapping("result")
+    fun dataSelection(@RequestParam firstParam: Byte, @RequestParam secondParam: Byte, model: MutableMap<String, Any>): String {
+        data = Data(firstParam, secondParam)
+        if (variableSelectedMode == 2.toByte())
+            data.isTime = true
+
+        dataRepository.save(data)
+        val dataEntries: Iterable<Data?> = dataRepository.findAll()
+        model["dataEntries"] = dataEntries
+        model["mode"] = variableSelectedMode
+        model["data"] = data
+        return "result"
+    }
 
 
     /*

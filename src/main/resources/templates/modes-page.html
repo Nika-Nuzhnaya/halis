@@ -32,24 +32,24 @@
   <p><a href="/">Main page</a></p>
 </div>
 
-<div th:if="${variableSelectedMode == 1}">
+<div th:if="${mode == 1}">
   <p><b style="font-size: 30px">Select the desired humidity range</b></p>
   <p style="font-weight: bold">Select the desired humidity range</p>
-  <form action="" method="post">
-    From: <input type="number" min="20" max="70" th:name="from">
-    Till: <input type="number" min="20" max="70" th:name="till">
+  <form action="result" method="post">
+    From: <input type="number" min="20" max="70" th:name="firstParam">
+    Till: <input type="number" min="20" max="70" th:name="secondParam">
     <input type="submit" value="Submit" />
   </form>
 
   <p><a href="/">Main page</a></p>
 </div>
 
-<div th:if="${variableSelectedMode == 2}">
+<div th:if="${mode == 2}">
   <p><b style="font-size: 30px">Select the desired time range</b></p>
   <p style="font-weight: bold">Select the desired time range</p>
-  <form action="" method="post">
-    Hours: <input type="number" min="0" max="127" th:name="hours">
-    Minutes: <input type="number" min="0" max="59" th:name="minutes">
+  <form action="result" method="post">
+    Hours: <input type="number" min="0" max="127" th:name="firstParam">
+    Minutes: <input type="number" min="0" max="59" th:name="secondParam">
     <input type="submit" value="Submit" />
   </form>
 

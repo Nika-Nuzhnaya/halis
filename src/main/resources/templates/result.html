@@ -19,26 +19,24 @@
     <th>Id</th>
     <th>From</th>
     <th>Till</th>
+    <th>Is time?</th>
   </tr>
   <tr data-th-if="${dataEntries != null}" data-th-each="dataEntry: ${dataEntries}">
     <td data-th-text="${dataEntry.id}"></td>
     <td data-th-text="${dataEntry.dataFirst}"></td>
     <td data-th-text="${dataEntry.dataSecond}"></td>
+    <td data-th-text="${dataEntry.isTime}"></td>
   </tr>
 </table>
 
-<div th:if="${room == 0}">
+
+<div th:if="${mode == 1}">
   <p style="font-weight: bold" th:text="'Humidity will be ' + ${data.dataFirst} + '-' + ${data.dataSecond} + '%'"></p>
   <p><a href="/">Main page</a></p>
 </div>
 
-<div th:if="${room == 1}">
-  <p style="font-weight: bold" th:text="'Humidity will be ' + ${data.dataFirst} + '-' + ${data.dataSecond} + '%'"></p>
-  <p><a href="/">Main page</a></p>
-</div>
-
-<div th:if="${room == 2}">
-  <p style="font-weight: bold" th:text="'Humidity will be ' + ${data.dataFirst} + '-' + ${data.dataSecond} + '%'"></p>
+<div th:if="${mode == 2}">
+  <p style="font-weight: bold" th:text="'The device will work ' + ${data.dataFirst} + ' hours and ' + ${data.dataSecond} + ' minutes'"></p>
   <p><a href="/">Main page</a></p>
 </div>
 
