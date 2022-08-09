@@ -14,8 +14,8 @@
 </head>
 <body>
 <p><b style="font-size: 30px">Welcome to Halis!</b></p>
-<div>Current humidity is <span th:text="${currentHumidity}"></span>%</div>
-<div>Current water level is <span th:text="${currentWaterLevel}"></span>/5</div>
+<div th:text="'Current humidity is ' + ${currentHumidity} + '%'"></div>
+<div th:text="'Current water level is ' + ${currentWaterLevel} + '/5'"></div>
 
 <div th:if="${isEmptyTank}">
     <p style="color: maroon; font-weight: bold" >Fill the water tank!</p>
@@ -24,10 +24,8 @@
 
 <form action="modes" method="post" th:unless="${isEmptyTank}">
     <p><select required="required" size="1" th:name="mode">
-        <option disabled selected value="0">Select the mode</option>
-        <option value="0">Auto mode</option>
-        <option value="1">Set the desired humidity range</option>
-        <option value="2">Set the desired time range</option>
+        <option disabled selected value="">Select the mode</option>
+        <option th:each="mode: ${modes}" th:value="${mode.id}" th:text="${mode.name}"></option>
     </select></p>
     <p><input type="submit" value="Submit"></p>
 </form>

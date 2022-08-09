@@ -21,10 +21,8 @@
   <div>
     <form action="rooms" method="post">
       <p><select required="required" size="1" th:name="room">
-        <option disabled selected value="1">Select the mode</option>
-        <option value="0">Children's room</option>
-        <option value="1">Bedroom</option>
-        <option value="2">Other rooms</option>
+        <option disabled selected value="">Select the room</option>
+        <option th:each="room: ${rooms}" th:value="${room.id}" th:text="${room.name}"></option>
       </select></p>
       <p><input type="submit" value="Submit"></p>
     </form>
